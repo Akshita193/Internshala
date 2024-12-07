@@ -1,0 +1,132 @@
+<!-- Task1 - Basic HTML Structure -->
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Task 2 - Header -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Akshita Sharma">
+    <meta name="keywords" content="Registration Data Information Student Table">
+    <meta name="description" content="It's a Student Registration System in which we can add student details like Name, Id, Email and Contact. The student details will reflect on the table where we can reset and delete the data as per the requirement.">
+    <title>Student Registration System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Student Registration System</h1>
+<!-- Task 3 - Form and Input Fields -->
+    <form id="studentForm">
+        <input type="text" id="studentName"  placeholder="Enter Student's Name" required><br>
+        <input type="number" id="studentID"  placeholder="Enter Student's ID" required><br>
+        <input type="email" id="emailID"  placeholder="Enter Email ID" required><br>
+        <input type="number" id="contactNumber"  placeholder="Enter Contact Number" required><br>
+        <button type="submit" id="addBtn">Add</button>
+    </form>
+
+<!-- Task 4 - Display Section -->
+    <h2>Student List:</h2>
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+<!-- Task 5 - JavaScript Functionality -->
+    <script>
+        
+        //let students = localStorage.getItem("students")|| [];
+        //const students = [];
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+
+        //created function to display the data
+        function displayStudents() {
+            const tableBody = document.querySelector("#studentTable tbody");
+            tableBody.innerHTML = ""; 
+
+            students.forEach((student, index) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${student.studentName}</td>
+                    <td>${student.studentID}</td>
+                    <td>${student.emailID}</td>
+                    <td>${student.contactNumber}</td>
+                    <td>
+                        <button onclick="editStudent(${index})">Edit</button>
+                        <button onclick="deleteStudent(${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // used to store and retrieve the data from local storage
+        function saveToLocalStorage() {
+            localStorage.setItem('students', JSON.stringify(students));
+         }
+
+        document.getElementById("studentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const studentName = document.getElementById("studentName").value;
+            const studentID = document.getElementById("studentID").value;
+            const emailID = document.getElementById("emailID").value;
+            const contactNumber = document.getElementById("contactNumber").value;
+
+            const newStudent = {
+                studentName,
+                studentID,
+                emailID,
+                contactNumber
+            };
+
+            students.push(newStudent);
+            saveToLocalStorage();
+            displayStudents();
+            document.getElementById("studentForm").reset();
+        });
+
+        //created function to add the edit action in the table
+        function editStudent(index) {
+            const student = students[index];
+            const studentName = prompt("Enter new name:", student.studentName);
+            const studentID = prompt("Enter new class:", student.studentID);
+            const emailID = prompt("Enter new address:", student.emailID);
+            const contactNumber = prompt("Enter new contact number:", student.contactNumber);
+
+            if (studentName && studentID && emailID && contactNumber) {
+                students[index] = {
+                    studentName,
+                    studentID,
+                    emailID,
+                    contactNumber
+                };
+                saveToLocalStorage();
+                displayStudents();
+            }
+        }
+
+        //created function to add the delete action in the table
+        function deleteStudent(index) {
+            if (confirm("Are you sure you want to delete this student?")) {
+                students.splice(index, 1);
+                saveToLocalStorage();
+                displayStudents();
+            }
+        }
+
+        //added to display the students on the page
+        window.onload=displayStudents;
+    </script>
+</body>
+</html>

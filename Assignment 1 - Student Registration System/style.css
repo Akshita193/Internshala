@@ -1,0 +1,59 @@
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #191970;
+    margin: 20px;
+    background-color: #F2F0EF;
+    overflow-y:scroll;
+}
+h1{
+    text-align: center;
+    background-color: #191970;
+    color: #F2F0EF;
+    padding: 5px 0px 7px 0px;
+}
+#studentForm{
+    text-align: center;
+}
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+    border-color:#F2F0EF ;
+    background-color: #191970;
+    color: #F2F0EF;
+
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+input{
+    text-align: center;
+    padding: 8px;
+    margin: 5px;
+    width: 50%;
+    border-color: #191970;
+    border-radius: 10px;
+}
+
+button{
+    padding: 8px;
+    margin: 7px;
+    background-color: #F2F0EF;
+    color:#191970;
+    border-radius: 10px;
+    border-color:#191970;
+    font-weight: 100;
+}
+#addBtn{
+    padding: 8px;
+    margin: 7px;
+    background-color:#191970;
+    color:#F2F0EF;
+    border-radius: 10px;
+    border-color:#F2F0EF;
+    font-weight: 100;
+}
